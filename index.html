@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketPulse India | Stock Market Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">M</div>
+            <div>
+                <h2>MarketPulse</h2>
+                <span>INDIA FINANCIALS</span>
+            </div>
+        </div>
+
+        <div class="menu-label">WORKSPACE</div>
+
+        <nav class="navigation">
+            <a href="#overview" class="nav-link active">⌂ <span>Overview</span></a>
+            <a href="#indices" class="nav-link">▥ <span>Market Indices</span></a>
+            <a href="#stocks" class="nav-link">◈ <span>Stocks Watchlist</span></a>
+            <a href="#sectors" class="nav-link">▦ <span>Sector Analysis</span></a>
+            <a href="#analysis" class="nav-link">⌁ <span>Market Analysis</span></a>
+            <a href="#global" class="nav-link">◎ <span>Global Markets</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile-avatar">MP</div>
+            <div class="profile-info">
+                <strong>MarketPulse</strong>
+                <span>Student Edition</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <div class="welcome-text">INDIAN FINANCIAL MARKET</div>
+                <h1>Market Overview</h1>
+                <p class="subtitle">Your complete view of the Indian stock market.</p>
+            </div>
+
+            <div class="topbar-right">
+                <div class="sample-status">
+                    <span class="status-dot"></span>
+                    SAMPLE DATA
+                </div>
+                <div class="date-box" id="currentDate">--</div>
+            </div>
+        </header>
+
+        <div class="disclaimer">
+            <span>ⓘ</span>
+            This is an educational student project. All displayed market values are illustrative sample data, not live exchange prices.
+        </div>
+
+        <!-- OVERVIEW -->
+        <section id="overview">
+
+            <div class="section-title">
+                <div>
+                    <h2>Market Snapshot</h2>
+                    <p>Major Indian market benchmarks</p>
+                </div>
+                <span class="small-tag">INDIA</span>
+            </div>
+
+            <div class="index-cards" id="indexCards"></div>
+
+            <div class="dashboard-grid">
+
+                <!-- MAIN CHART -->
+                <div class="panel main-chart-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Market Performance</h3>
+                            <p>NIFTY 50 sample price movement</p>
+                        </div>
+
+                        <select id="chartRange" class="chart-select">
+                            <option value="1D">1 Day</option>
+                            <option value="1W">1 Week</option>
+                            <option value="1M">1 Month</option>
+                            <option value="1Y">1 Year</option>
+                        </select>
+                    </div>
+
+                    <div class="chart-summary">
+                        <h2 id="chartCurrentPrice">24,850.50</h2>
+                        <span class="positive-text">+185.40 (+0.75%)</span>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- MARKET BREADTH -->
+                <div class="panel breadth-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Market Breadth</h3>
+                            <p>Advancing and declining stocks</p>
+                        </div>
+                        <span class="icon-box">▥</span>
+                    </div>
+
+                    <div class="breadth-total">
+                        <h2>2,145</h2>
+                        <span>Stocks tracked</span>
+                    </div>
+
+                    <div class="breadth-bar">
+                        <div class="advance-bar"></div>
+                        <div class="decline-bar"></div>
+                        <div class="unchanged-bar"></div>
+                    </div>
+
+                    <div class="breadth-legend">
+                        <div><span class="legend-dot green"></span>Advancing <strong>1,245</strong></div>
+                        <div><span class="legend-dot red"></span>Declining <strong>720</strong></div>
+                        <div><span class="legend-dot yellow"></span>Unchanged <strong>180</strong></div>
+                    </div>
+
+                    <div class="breadth-footer">
+                        <span>Market sentiment</span>
+                        <strong class="positive-text">Bullish</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INDICES -->
+        <section id="indices" class="content-section">
+            <div class="section-title">
+                <div>
+                    <h2>Major Market Indices</h2>
+                    <p>Important Indian stock market indices</p>
+                </div>
+                <span class="small-tag">INDEX DATA</span>
+            </div>
+
+            <div class="panel table-panel">
+                <div class="table-toolbar">
+                    <h3>Index Performance</h3>
+                    <span>Sample market snapshot</span>
+                </div>
+
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>INDEX NAME</th>
+                                <th>VALUE</th>
+                                <th>CHANGE</th>
+                                <th>CHANGE %</th>
+                                <th>OPEN</th>
+                                <th>HIGH</th>
+                                <th>LOW</th>
+                            </tr>
+                        </thead>
+                        <tbody id="indexTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- STOCKS -->
+        <section id="stocks" class="content-section">
+            <div class="section-title">
+                <div>
+                    <h2>Stocks Watchlist</h2>
+                    <p>Selected companies listed on Indian exchanges</p>
+                </div>
+                <span class="small-tag">NSE STOCKS</span>
+            </div>
+
+            <div class="panel table-panel">
+                <div class="table-toolbar stock-toolbar">
+                    <h3>Popular Stocks</h3>
+                    <input type="text" id="stockSearch" placeholder="Search company...">
+                </div>
+
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>COMPANY</th>
+                                <th>SYMBOL</th>
+                                <th>PRICE</th>
+                                <th>CHANGE</th>
+                                <th>CHANGE %</th>
+                                <th>VOLUME</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stockTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTORS -->
+        <section id="sectors" class="content-section">
+            <div class="section-title">
+                <div>
+                    <h2>Sector Analysis</h2>
+                    <p>Performance across major Indian industries</p>
+                </div>
+            </div>
+
+            <div class="sector-grid" id="sectorGrid"></div>
+        </section>
+
+        <!-- MARKET ANALYSIS -->
+        <section id="analysis" class="content-section">
+            <div class="section-title">
+                <div>
+                    <h2>Market Intelligence</h2>
+                    <p>Understand the forces behind market movements</p>
+                </div>
+            </div>
+
+            <div class="analysis-grid">
+
+                <div class="analysis-card">
+                    <div class="analysis-icon blue">⌁</div>
+                    <h3>Technical Indicators</h3>
+                    <p>Study price trends and market momentum using technical analysis tools.</p>
+                    <div class="topic-list">
+                        <span>RSI</span>
+                        <span>MACD</span>
+                        <span>SMA / EMA</span>
+                        <span>VWAP</span>
+                        <span>ATR</span>
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <div class="analysis-icon purple">◈</div>
+                    <h3>Liquidity Analysis</h3>
+                    <p>Understand how easily shares can be bought or sold without significantly affecting their price.</p>
+                    <div class="topic-list">
+                        <span>Trading Volume</span>
+                        <span>Bid-Ask Spread</span>
+                        <span>Market Depth</span>
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <div class="analysis-icon green">↗</div>
+                    <h3>Accumulation</h3>
+                    <p>A phase in which investors gradually build positions. Price behaviour and volume can provide useful clues.</p>
+                    <div class="topic-list">
+                        <span>Buying Pressure</span>
+                        <span>Volume Study</span>
+                        <span>Support Zones</span>
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <div class="analysis-icon orange">⇄</div>
+                    <h3>Distribution</h3>
+                    <p>A phase in which investors gradually sell holdings, often after an extended price rise.</p>
+                    <div class="topic-list">
+                        <span>Selling Pressure</span>
+                        <span>Resistance</span>
+                        <span>Volume Signals</span>
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <div class="analysis-icon red">⚠</div>
+                    <h3>Market Manipulation</h3>
+                    <p>Learn about misleading market activity, artificial price movements and common warning signs.</p>
+                    <div class="topic-list">
+                        <span>False Breakouts</span>
+                        <span>Price Rigging</span>
+                        <span>Unusual Activity</span>
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <div class="analysis-icon cyan">▣</div>
+                    <h3>Institutional Activity</h3>
+                    <p>Understand how large institutions execute orders and influence liquidity and market trends.</p>
+                    <div class="topic-list">
+                        <span>FII / FPI</span>
+                        <span>DII</span>
+                        <span>Block Deals</span>
+                        <span>Bulk Deals</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- GLOBAL MARKETS -->
+        <section id="global" class="content-section">
+            <div class="section-title">
+                <div>
+                    <h2>Global Market Connections</h2>
+                    <p>International factors that can influence Indian markets</p>
+                </div>
+            </div>
+
+            <div class="global-grid">
+                <div class="global-card">
+                    <div class="global-symbol">OIL</div>
+                    <div>
+                        <h3>Brent Crude Oil</h3>
+                        <p>Sample reference price</p>
+                    </div>
+                    <strong>$78.40</strong>
+                    <span class="negative-text">-0.45%</span>
+                </div>
+
+                <div class="global-card">
+                    <div class="global-symbol">₹</div>
+                    <div>
+                        <h3>USD / INR</h3>
+                        <p>Sample exchange rate</p>
+                    </div>
+                    <strong>₹83.25</strong>
+                    <span class="negative-text">+0.12%</span>
+                </div>
+
+                <div class="global-card">
+                    <div class="global-symbol">US</div>
+                    <div>
+                        <h3>S&P 500</h3>
+                        <p>Sample index level</p>
+                    </div>
+                    <strong>5,820.30</strong>
+                    <span class="positive-text">+0.38%</span>
+                </div>
+
+                <div class="global-card">
+                    <div class="global-symbol">AS</div>
+                    <div>
+                        <h3>Nikkei 225</h3>
+                        <p>Sample index level</p>
+                    </div>
+                    <strong>38,450.20</strong>
+                    <span class="positive-text">+0.62%</span>
+                </div>
+            </div>
+
+            <div class="panel global-explainer">
+                <h3>Why do global markets matter?</h3>
+                <p>
+                    Indian markets are connected to the global economy. Changes in crude oil prices,
+                    foreign investment, currency values, international interest rates and global stock
+                    indices can influence investor sentiment and Indian market movements.
+                </p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div>
+                <strong>MarketPulse India</strong>
+                <span>Student Stock Market Analysis Project</span>
+            </div>
+            <p>Educational use only · Sample data · Not financial advice</p>
+        </footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
